@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="455c7177-0c18-4e05-be89-d757f4b088c6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/finishing_touch_cleanup.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finishing_touch_cleanup_snapshot.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Visualizations.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/analysis.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
