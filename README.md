@@ -547,3 +547,73 @@ jupyter nbconvert --to html --execute analysis.ipynb --output analysis_snapshot.
 ```
 
 The HTML file is fully self-contained and captures the complete run state of the notebook including all tables, statistics, and matplotlib/seaborn figures. This is the recommended format for submission and archiving.
+
+
+
+
+---
+
+## Addendum — Finishing Touch Cleanup (finishing_touch_cleanup.ipynb)
+
+**Date:** March 2026  
+**File:** `finishing_touch_cleanup.ipynb`
+
+### Background
+
+After the initial cleanup was completed and saved, the official NASA README
+files from the `extra_infos/` folder were analyzed. These per-battery-group
+documents revealed that several discharge runs had unexpectedly low or zero
+capacity values with the following note:
+
+> "Note that there are several discharge runs where the capacity was very low.
+> Reasons for this have not been fully analyzed."
+
+For battery group B0049–B0052 specifically, the README confirmed:
+
+> "The experiments were carried out until the experiment control software crashed."
+
+This directly explains the missing and anomalous capacity values observed in
+those batteries during initial cleanup.
+
+### Two Categories Identified
+
+| Category | Count | Decision | Reason |
+|----------|-------|----------|--------|
+| `Capacity == 0.0` exactly | 19 rows | **Dropped** | Recording failure — physically impossible for a running battery |
+| `0 < Capacity < 0.5` | 208 rows | **Kept** | NASA-acknowledged anomalies — real readings from unusual discharge conditions |
+
+### Batteries Affected by Low Capacity Anomaly (kept)
+
+| Battery | Rows | Group Condition |
+|---------|------|-----------------|
+| B0043 | 46 | 4°C, 4A+1A load |
+| B0042 | 46 | 4°C, 4A+1A load |
+| B0044 | 46 | 4°C, 4A+1A load |
+| B0041 | 42 | 4°C, 4A+1A load |
+| B0039 | 12 | 24°C+44°C, multiple currents |
+| B0033 | 9  | 24°C, 4A, late cycle degradation |
+| B0050 | 6  | 4°C, 2A, software crash group |
+| B0040 | 1  | Single anomalous reading |
+
+### Files Changed
+
+| File | Action |
+|------|--------|
+| `metadata_cleaned.csv` | **Overwritten** — 19 zero rows removed, shape updated |
+| `discharge_cleaned.csv` | Unchanged — no Capacity column |
+| `impedance_cleaned.csv` | Unchanged — no Capacity column |
+| `charge_chunks/` | Unchanged — no Capacity column |
+
+### Final Metadata Shape After This Pass
+```
+metadata_cleaned.csv : (7512, 10)
+```
+
+### Note on Remaining Low Capacity Values
+
+The 208 non-zero low capacity rows are intentionally retained. They represent
+real experimental observations from batteries running under cold temperature
+(4°C) and high current conditions. Removing them would silently eliminate
+entire batteries from the dataset. When interpreting capacity-related plots,
+be aware these values exist and are not cleaning errors.
+
